@@ -11,6 +11,7 @@ Crafty.c("GamepadPlatControl", {
     console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
     e.gamepad.index, e.gamepad.id,
     e.gamepad.buttons.length, e.gamepad.axes.length);
+    console.dir(e.gamepad);
     this.gamepad = e.gamepad;
     console.dir(e.gamepad);
     this.connected = true;
@@ -25,9 +26,9 @@ Crafty.c("GamepadPlatControl", {
     if (buttons[1].pressed) {
       y = 1;
     }
-    if (button[0].pressed) Crafty.trigger("P1Change");
-    if (button[2].pressed) Crafty.trigger("P2Change");
-    if (button[3].pressed) Crafty.trigger("MChange");
+    if (buttons[0].pressed) Crafty.trigger("P1Change");
+    if (buttons[2].pressed) Crafty.trigger("P2Change");
+    if (buttons[3].pressed) Crafty.trigger("MChange");
     //axes horizontal
     if (axes[1] > .5) {
       x = -axes[1];
