@@ -13,7 +13,7 @@ define(["c"], function (require) {
     //  functionnality?
     moving: function (speed, stopOnSolids) {
       if (typeof(speed) === "object") {
-        this.speed = speed
+        this.speed = speed;
       } else {
         this.speed.x = speed;
         this.speed.y = speed;
@@ -36,7 +36,7 @@ define(["c"], function (require) {
         x = x.x;
       }
       this.x -= this.speed.x * x;
-      this.y -= this.speed.x * y;
+      this.y -= this.speed.y * y;
       this.trigger("Moved", oldposition);
       if (this.stopOnSolids) {
         hitData = this.hit("Solid");
@@ -45,7 +45,6 @@ define(["c"], function (require) {
           this.move(-x, -y);
         }
       }
-    
     }
   });
 });
