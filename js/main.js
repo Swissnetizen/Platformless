@@ -11,7 +11,7 @@ require(["c", "gamepad", "AI", "platform"], function () {
   //Creating Entities
   //A wall
   window.onresize
-  var floor = Crafty.e("Wall, 2D, Canvas, Color, Floor, Solid, Collision")
+  var floor = Crafty.e("Wall, 2D, Canvas, Color, Platform, Solid, Collision")
     .attr({x: 0, y: 250, w: 250, h: 10})
     .color("green");
   var lava = Crafty.e("Wall, 2D, Canvas, Color, Floor, Solid, Lava, Collision")
@@ -19,7 +19,7 @@ require(["c", "gamepad", "AI", "platform"], function () {
     .color("red");
   //The player
   var player = Crafty.e("Creature, 2D, Canvas, Color, Moving, Collision, Solid, GamepadPlatControl")
-  .attr({x: 0, y: 2, w: 20, h: 20})
+  .attr({x: 0, y: 230, w: 20, h: 20})
   .collision()
   .color('#F0F')
 //  .fourway({x: 5, y: 6})
