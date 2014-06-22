@@ -46,33 +46,3 @@ Crafty.c("Moving", {
     
   }
 });
-Crafty.c("ArrowPlatControl", {
-  keysPressed: {},
-  init: function () {
-    this.requires("Moving");
-  },
-  wasd: function () {
-    xtag.addEvent(window, "keydown:keypass(39, 37, 32)", function (e) {
-      this.keysPressed[e.keyCode] = true;
-    }.bind(this));
-    xtag.addEvent(document, "keyup:keypass(39, 37, 32)", function (e) {
-      this.keysPressed[e.keyCode] = false;
-    }.bind(this));
-    this.bind("RenderScene", this._onRenderScene.bind(this));
-    return this;
-  },
-  _onRenderScene: function () {
-    var x = 0, y = 0;
-    if (this.keysPressed[37]) {
-      x = 1;
-      //Right
-    } else if (this.keysPressed[39]) {
-      x = -1;
-    }
-    //Left
-    if (this.keysPressed[32]) {
-      y = 1;
-    }
-    this.move(x, y);
-  }
-});
