@@ -38,7 +38,6 @@ define(["c", "moving"], function (require) {
         x= -axes[1];
       }
       this.move(x, y);
-      console.log(this.speed.y)
     }
   });
 });
