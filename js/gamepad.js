@@ -28,7 +28,7 @@ define(["c", "moving"], function (require) {
       if (buttons[1].pressed) {
         y = 1;
       }
-      if (buttons[0].pressed) Crafty.trigger("P1Change");
+      if (buttons[0].pressed) Crafty.trigger("P1Change"); 
       if (buttons[2].pressed) Crafty.trigger("P2Change");
       if (buttons[3].pressed) Crafty.trigger("MChange");
       //axes horizontal
@@ -38,6 +38,6 @@ define(["c", "moving"], function (require) {
         x= -axes[1];
       }
       this.move(x, y);
-    }
+    },
   });
 });
