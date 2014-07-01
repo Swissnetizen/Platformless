@@ -4,27 +4,37 @@ requirejs.config({
     c: "../bower_components/crafty/dist/crafty"
   }
 });
-require(["c", "gamepad", "AI", "platform"], function () {
+require(["c", "gamepad", "AI", "platform", "wasd"], function () {
   "use strict";
   //Initialising the game
   Crafty.init(600, 600, document.getElementById('game'));
   //Creating Entities
   //A wall
   window.onresize
-  var floor = Crafty.e("Wall, 2D, Canvas, Color, Platform, Solid, Collision")
+  var floor = Crafty.e("2D, Canvas, Color, Platform, Solid, Collision")
     .attr({x: 0, y: 250, w: 250, h: 10})
     .color("green");
-  var lava = Crafty.e("Wall, 2D, Canvas, Color, Floor, Solid, Lava, Collision")
-    .attr({x: 250, y: 500, w: 250, h: 10})
-    .color("red");
+  var plat = Crafty.e("2D, Canvas, Color, Platform, Plat1, Collision")
+    .attr({x: 250, y: 250, w: 250, h: 10})
+    .Plat1(true);
   //The player
-  var player = Crafty.e("Creature, 2D, Canvas, Color, Moving, Collision, Solid, GamepadPlatControl")
-  .attr({x: 0, y: 230, w: 20, h: 20})
+  var player = Crafty.e("Creature, 2D, Canvas, Color, Moving, Collision, Solid, GamepadPlatControl, WASDControls")
+  .attr({
+    x: 0, 
+    y: 230,
+    w: 20, 
+    h: 40,
+    speed: {
+      x: 4,
+      y: 5
+    },
+    stopOnSolids: true
+  })
   .collision()
   .color('#F0F')
 //  .fourway({x: 5, y: 6})
   .creature(1, 3, "P1")
-  .moving({x: 3, y: 5}, true)
+
   .gamepad();
   //Two identical enemies 
   /*
