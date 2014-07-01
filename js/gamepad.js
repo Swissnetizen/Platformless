@@ -4,9 +4,9 @@ define(["c", "moving"], function (require) {
     init: function () {
       this.requires("Moving");
       window.addEventListener("gamepadconnected", this._onGamepadConnect.bind(this));
+      this.bind("RenderScene", this._onRenderScene);
     },
     gamepad: function () {
-      this.bind("RenderScene", this._onRenderScene);
       return this;
     },
     _onGamepadConnect: function (e) {
@@ -33,9 +33,9 @@ define(["c", "moving"], function (require) {
       if (buttons[3].pressed) Crafty.trigger("MChange");
       //axes horizontal
       if (axes[1] > .5) {
-        x = -axes[1];
+        x = axes[1];
       } else if(axes[1] < -.5) {
-        x= -axes[1];
+        x= axes[1];
       }
       this.move(x, y);
     },
