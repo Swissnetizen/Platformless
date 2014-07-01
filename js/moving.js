@@ -15,8 +15,9 @@ define(["c"], function (require) {
       if (typeof(speed) === "object") {
         this.speed = speed;
       } else {
-        this.speed.x = speed;
-        this.speed.y = speed;
+        this.speed = {
+          x: speed, y: speed
+        }
       }
       this.stopOnSolids = stopOnSolids
       return this;
@@ -35,8 +36,8 @@ define(["c"], function (require) {
         var y = x.y;
         x = x.x;
       }
-      this.x -= this.speed.x * x;
-      this.y -= this.speed.y * y;
+      this.x += this.speed.x * x;
+      this.y += this.speed.y * y;
       this.trigger("Moved", oldposition);
       if (this.stopOnSolids) {
         hitData = this.hit("Solid");
