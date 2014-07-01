@@ -16,11 +16,11 @@ define(["c", "moving"], function (require) {
           y = 0;
           // GO LEFT
       if (this.isDown("A")) {
-        x = 1;
+        x = -1;
       } 
       //GO RIGHT
       if (this.isDown("D")) {
-        x = -1;
+        x = 1;
       }
       //JUMP
       if (this.isDown("SPACE")) {
