@@ -24,7 +24,7 @@ define(["c", "moving"], function (require) {
       }
       //JUMP
       if (this.isDown("SPACE")) {
-        y = 1;
+        y = -1;
       }
       //ACTIVATE MOVEMENT
       this.move(x, y);
