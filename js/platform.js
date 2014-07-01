@@ -10,26 +10,27 @@ define(["c"], function (require) {
         this.protruding = active;
         this.removeComponent("Solid");
       }
-      //Select Colour pallete
+      //Select Colour palete
       if (n === 1) {
         this.colorValues = {
           primary: "#0000FF",
-          secondary: "#0000CC"
+          secondary: "#000099"
         }
       } else if (n === 2) {
         this.colorValues = {
           primary: "#FF0000",
-          secondary: "#CC0000"
+          secondary: "#990000"
         }
       }
       this.color(this.colorValues.primary);
     },
     _onPNChange: function () {
-      this.protruding = !protruding;
+      this.protruding = !this.protruding;
       if (this.protruding) {
         this.addComponent("Solid");
         this.color(this.colorValues.primary);
       } else {
+        console.log("HIDE");
         this.removeComponent("Solid");
         this.color(this.colorValues.secondary);
       }
