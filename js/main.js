@@ -17,7 +17,7 @@ require(["c", "gamepad", "AI", "platform", "wasd", "stats"], function () {
   //Creating Entities
   //A wall
   //STATS:
-  Crafty.e("DisplayStats")
+  Crafty.e("DisplayStats");
   window.onresize
   var floor = Crafty.e("2D, Canvas, Color, Platform, Solid, Collision")
     .attr({x: 0, y: 250, w: 250, h: 10})
