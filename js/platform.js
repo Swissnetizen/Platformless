@@ -5,11 +5,6 @@ define(["c"], function (require) {
       this.requires("Color");
       this.addComponent("Solid");
       this.bind("P" + n + "Change", this._onPNChange.bind(this));
-      //Does it start retracted?
-      if (active === false) {
-        this.protruding = active;
-        this.removeComponent("Solid");
-      }
       //Select Colour palete
       if (n === 1) {
         this.colorValues = {
@@ -22,7 +17,13 @@ define(["c"], function (require) {
           secondary: "#990000"
         }
       }
-      this.color(this.colorValues.primary);
+      //Does it start retracted?
+      if (active === false) {
+        this.protruding = active;
+        this.removeComponent("Solid");
+        this.color(this.colorValues.secondary);
+        //It starts extended
+      } else this.color(this.colorValues.primary);
     },
     _onPNChange: function () {
       this.protruding = !this.protruding;
