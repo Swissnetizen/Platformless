@@ -19,10 +19,10 @@ require(["c", "gamepad", "AI", "platform", "wasd", "stats"], function () {
   //STATS:
   Crafty.e("DisplayStats");
   window.onresize
-  var floor = Crafty.e("2D, Canvas, Color, Platform, Solid, Collision")
+  var floor = Crafty.e("2D, Canvas, Color, Solid, Collision")
     .attr({x: 0, y: 250, w: 250, h: 10})
     .color("green");
-  var plat = Crafty.e("2D, Canvas, Color, Platform, Plat1, Collision")
+  var plat = Crafty.e("2D, Canvas, Color, Plat1, Collision")
     .attr({x: 250, y: 250, w: 250, h: 10})
     .Plat1(true);
   //The player

@@ -15,7 +15,7 @@ define(["c"], function (require) {
       this.bind("Death", this._onDeath);
       this.bind("Moved", this._onMoved);
       this.bind("Attack", this._onAttack);
-      this.gravity("Platform");
+      this.gravity("Solid");
       this.onHit("Creature", function () {
         console.log(this.name + ": Got hit")
       });
