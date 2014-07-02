@@ -5,20 +5,14 @@ define(["c"], function (require) {
     multiplier: 1,
     health: 1,
     attack: 1,
-    healthMax: 1,
     init: function () {
       this.requires("Collision, Delay, Gravity");
       //Binds events
-      this.bind("Colour", this._onColour);
       this.bind("Damage", this._onDamage);
-      this.bind("Heal", this._onHeal);
       this.bind("Death", this._onDeath);
-      this.bind("Moved", this._onMoved);
       this.bind("Attack", this._onAttack);
+      //Set up gravity
       this.gravity("Solid");
-      this.onHit("Creature", function () {
-        console.log(this.name + ": Got hit")
-      });
     },
     //Health of a creature
     creature: function (attack, health, label) {
@@ -27,8 +21,6 @@ define(["c"], function (require) {
       this.label = label;
       return this;
     },
-    //Event Handlers
- 
     //Being told to attack!
     _onAttack: function (target) {
       target.trigger("Damage", this.attack);
