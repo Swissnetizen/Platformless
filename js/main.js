@@ -13,7 +13,7 @@ requirejs.config({
 require(["c", "gamepad", "AI", "platform", "wasd", "stats"], function () {
   "use strict";
   //Initialising the game
-  Crafty.init(600, 600, document.getElementById('game'));
+  Crafty.init(window.innerWidth, window.innerHeight, document.getElementById('game'));
   //Creating Entities
   //A wall
   //STATS:
@@ -22,9 +22,12 @@ require(["c", "gamepad", "AI", "platform", "wasd", "stats"], function () {
   var floor = Crafty.e("2D, Canvas, Color, Solid, Collision")
     .attr({x: 0, y: 250, w: 250, h: 10})
     .color("green");
-  var plat = Crafty.e("2D, Canvas, Color, Plat1, Collision")
+  Crafty.e("2D, Canvas, Color, Plat1, Collision")
     .attr({x: 250, y: 250, w: 250, h: 10})
     .Plat1(true);
+  Crafty.e("2D, Canvas, Color, Plat1, Collision")
+    .attr({x: 500, y: 250, w: 250, h: 10})
+    .Plat1(false);    
   //The player
   var player = Crafty.e("Creature, 2D, Canvas, Color, Moving, Collision, Solid, GamepadPlatControl, WASDControls")
   .attr({
