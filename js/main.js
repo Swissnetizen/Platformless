@@ -1,20 +1,23 @@
 requirejs.config({
   paths: {
     "bower": "../bower_components",
-    "c": "bower/crafty/dist/crafty"
-    "statsJS": "bower/stats.js/src/Stats"
+    "c": "../bower_components/crafty/dist/crafty",
+    "statsJS": "../bower_components/stats.js/src/Stats"
   },
   shim: {
     "statsJS": {
-       exports: 'Stats',
-    },
+       exports: "Stats"
+    }
+  }
 });
-require(["c", "gamepad", "AI", "platform", "wasd"], function () {
+require(["c", "gamepad", "AI", "platform", "wasd", "stats"], function () {
   "use strict";
   //Initialising the game
   Crafty.init(600, 600, document.getElementById('game'));
   //Creating Entities
   //A wall
+  //STATS:
+  Crafty.e("DisplayStats")
   window.onresize
   var floor = Crafty.e("2D, Canvas, Color, Platform, Solid, Collision")
     .attr({x: 0, y: 250, w: 250, h: 10})
