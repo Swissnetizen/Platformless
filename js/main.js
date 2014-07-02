@@ -1,8 +1,13 @@
 requirejs.config({
   paths: {
-    bower: "../bower_components",
-    c: "../bower_components/crafty/dist/crafty"
-  }
+    "bower": "../bower_components",
+    "c": "bower/crafty/dist/crafty"
+    "statsJS": "bower/stats.js/src/Stats"
+  },
+  shim: {
+    "statsJS": {
+       exports: 'Stats',
+    },
 });
 require(["c", "gamepad", "AI", "platform", "wasd"], function () {
   "use strict";
