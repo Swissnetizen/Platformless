@@ -1,11 +1,15 @@
+
 define(["c", "moving"], function (require) {
   "use strict";
   Crafty.c("WASDControls", {
     init: function () {
-      this.requires("Moving, Keyboard");
+      this.requires("Moving, Keyboard, Mouse, Delay");
       this.bind("RenderScene", this._onRenderScene);
-      this.bind("KeyDown", this._onKeyDown);
-      this.bind("KeyUp", this._onKeyUp);
+      // window.addEventListener("click", this._onMouseChange);
+      window.addEventListener("mousedown", this._onMouseChange);
+      window.addEventListener("mouseup", this._onMouseChange);
+      this.bind("KeyUp", this._onMouseChange);
+      this.bind("KeyDown", this._onMouseChange);
     },
     wasd: function (speed) {
       this.moving(speed);
@@ -17,7 +21,7 @@ define(["c", "moving"], function (require) {
           // GO LEFT
       if (this.isDown("A")) {
         x = -1;
-      } 
+      }
       //GO RIGHT
       if (this.isDown("D")) {
         x = 1;
@@ -29,27 +33,16 @@ define(["c", "moving"], function (require) {
       //ACTIVATE MOVEMENT
       this.move(x, y);
     },
-    _onKeyDown: function (e) {
+    _onMouseChange: function (e) {
       //PLATFORM 1
-      var keys = Crafty.keys;
-      
-      console.log("KEYDOWN")
-      if (e.key === keys.Q) {
+      var b = Crafty.mouseButtons,
+          k = Crafty.keys;
+      console.log("MOSUE CHANGE")
+      if (e.mouseButton === b.LEFT || e.key === k.Q) {
         Crafty.trigger("P1Change");
       }
-      //PLATFORM 2
-      if (e.key === keys.E) {
-        Crafty.trigger("P2Change");
-      }
-    },
-    _onKeyUp: function (e) {
-      //PLATFORM 1
-      var keys = Crafty.keys;
-      if (e.key === keys.Q) {
-        Crafty.trigger("P1Change");
-      }
-      //PLATFORM 2
-      if (e.key === keys.E) {
+      //PLATFORM 2?
+      if (e.mouseButton === b.RIGHT || e.key === k.E) {
         Crafty.trigger("P2Change");
       }
     }
