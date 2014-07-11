@@ -27,13 +27,16 @@ require(["c", "gamepad", "AI", "platform", "wasd", "stats"], function () {
     .Plat1(true);
   Crafty.e("2D, Canvas, Color, Plat1, Collision")
     .attr({x: 500, y: 250, w: 250, h: 10})
-    .Plat1(false);    
+    .Plat1(false);
+  Crafty.e("2D, Canvas, Color, Plat2, Collision")
+    .attr({x: 500, y: 250, w: 250, h: 10})
+    .Plat2();          
   //The player
   var player = Crafty.e("Creature, 2D, Canvas, Color, Moving, Collision, Solid, GamepadPlatControl, WASDControls")
   .attr({
-    x: 0, 
+    x: 0,
     y: 230,
-    w: 20, 
+    w: 20,
     h: 40,
     speed: {
       x: 4,
@@ -47,7 +50,7 @@ require(["c", "gamepad", "AI", "platform", "wasd", "stats"], function () {
   .creature(1, 3, "P1")
 
   .gamepad();
-  //Two identical enemies 
+  //Two identical enemies
   /*
   var enemy = Crafty.e("Creature, 2D, Canvas, Color, Hostile, Collision, Solid")
   .attr({x: 20, y: 60, w: 20, h: 20})
@@ -61,4 +64,3 @@ require(["c", "gamepad", "AI", "platform", "wasd", "stats"], function () {
   .collision();
   */
 });
-
