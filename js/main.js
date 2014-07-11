@@ -29,8 +29,8 @@ require(["c", "gamepad", "AI", "platform", "wasd", "stats"], function () {
     .attr({x: 500, y: 250, w: 250, h: 10})
     .Plat1(false);
   Crafty.e("2D, Canvas, Color, Plat2, Collision")
-    .attr({x: 500, y: 250, w: 250, h: 10})
-    .Plat2();          
+    .attr({x: 750, y: 500, w: 250, h: 10})
+    .Plat2();
   //The player
   var player = Crafty.e("Creature, 2D, Canvas, Color, Moving, Collision, Solid, GamepadPlatControl, WASDControls")
   .attr({
