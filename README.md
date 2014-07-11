@@ -19,10 +19,10 @@ This is how the repo will be structured:
 
   HOW TO STOP AUTOMATIC PUSHING TO GH-PAGES:
 
-  REMOVE 
+  REMOVE
   "
-  push = +refs/heads/master:refs/heads/gh-pages
-  push = +refs/heads/master:refs/heads/master
+  push = refs/heads/master:refs/heads/gh-pages
+  push = refs/heads/master:refs/heads/master
 
   "
 FROM .git/config
