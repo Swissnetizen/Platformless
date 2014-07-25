@@ -1,11 +1,39 @@
 define(["c"], function (require) {
+  //General function to define different platforms
   Crafty.c("PlatN", {
-    PlatN: function (n, active) {
-      this.protruding = true;
+    init: function () {
+      //Define setters
+      Object.defineProperties(this,{
+        "platformNumber": {
+          get: function () {
+            return this._platformNumber;
+          },
+          set: this._platformNumberChanged
+        },
+        "active": {
+          set: this._activeChanged,
+          get: function () {
+            return this._active;
+          },
+        }
+      });
+      //Set active to true.
+      //Default
+      this.platformNumber = 1;
+      this.active = true;
+      //Add components
       this.requires("Color");
       this.addComponent("Solid");
-      this.bind("P" + n + "Change", this._onPNChange.bind(this));
-      //Select Colour palete
+      //Bind events
+    },
+    PlatN: function (n, active) {
+      this.platformNumber = 1;
+      //Does it start retracted?
+      this.active = active;
+      //It starts extended
+    },
+    _platformNumberChanged: function (n) {
+      this._platformNumber = n;
       if (n === 1) {
         this.colorValues = {
           primary: "#0000FF",
@@ -17,38 +45,42 @@ define(["c"], function (require) {
           secondary: "#990000"
         }
       }
-      //Does it start retracted?
-      if (active === false) {
-        this.protruding = active;
-        this.removeComponent("Solid");
-        this.color(this.colorValues.secondary);
-        //It starts extended
-      } else this.color(this.colorValues.primary);
+      this._activeChanged(this._active);
+      this.bind("P" + n + "Change", this._onPNChange.bind(this));
     },
-    _onPNChange: function () {
-      this.protruding = !this.protruding;
-      if (this.protruding) {
+    _activeChanged: function (value) {
+      this._active = value;
+      if (value) {
         this.addComponent("Solid");
         this.color(this.colorValues.primary);
       } else {
-        console.log("HIDE");
         this.removeComponent("Solid");
         this.color(this.colorValues.secondary);
       }
+    },
+    _onPNChange: function () {
+      this.active = !this._active;
     }
   });
   //Shorter functions to init the top one
   //Plat1
   Crafty.c("Plat1", {
-    Plat1: function (active) {
+    init: function () {
       this.addComponent("PlatN");
-      this.PlatN(1, active);
+      this.platformNumber = 1;
+    },
+    Plat1: function (active) {
+      this.active = active;
     }
   });
+//Plat 2
   Crafty.c("Plat2", {
-    Plat2: function () {
+    init: function () {
       this.addComponent("PlatN");
-      this.PlatN(2);
+      this.platformNumber = 2;
+    },
+    Plat2: function (active) {
+      this.active = active;
     }
   });
 });
