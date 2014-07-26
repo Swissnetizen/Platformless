@@ -10,7 +10,7 @@ requirejs.config({
     }
   }
 });
-require(["c", "gamepad", "AI", "platform", "wasd", "stats"], function () {
+require(["c", "gamepad", "AI", "platform", "wasd", "stats", "movingplat"], function () {
   "use strict";
   //Initialising the game
   Crafty.init(window.innerWidth, window.innerHeight, document.getElementById('game'));
@@ -25,12 +25,16 @@ require(["c", "gamepad", "AI", "platform", "wasd", "stats"], function () {
   Crafty.e("2D, Canvas, Color, Plat1, Collision")
     .attr({x: 250, y: 250, w: 250, h: 10})
     .Plat1(true);
-  Crafty.e("2D, Canvas, Color, Plat1, Collision")
-    .attr({x: 500, y: 250, w: 250, h: 10})
-    .Plat1(false);
   Crafty.e("2D, Canvas, Color, Plat2, Collision")
-    .attr({x: 750, y: 500, w: 250, h: 10})
-    .Plat2();
+    .attr({x: 500, y: 250, w: 250, h: 10})
+    .Plat2(false);
+  Crafty.e("2D, Canvas, Color, MovingPlat, Collision")
+    .attr({
+      //Position and size
+      x: 750, y: 500, w: 250, h: 10,
+      //Start and end for moving plat
+      end: 1750
+    });
   //The player
   var player = Crafty.e("Creature, 2D, Canvas, Color, Moving, Collision, Solid, GamepadPlatControl, WASDControls")
   .attr({
@@ -49,18 +53,4 @@ require(["c", "gamepad", "AI", "platform", "wasd", "stats"], function () {
 //  .fourway({x: 5, y: 6})
   .creature(1, 3, "P1")
 
-  .gamepad();
-  //Two identical enemies
-  /*
-  var enemy = Crafty.e("Creature, 2D, Canvas, Color, Hostile, Collision, Solid")
-  .attr({x: 20, y: 60, w: 20, h: 20})
-  .collision()
-  .color("#00F")
-  .creature(1, 1, "Bluey");
-  var enemy2 = Crafty.e("Creature, 2D, Canvas, Color, Hostile, Collision, Solid")
-  .attr({x: 100, y: 60, w: 20, h: 20})
-  .color("#0F0")
-  .creature(1, 1, "Greenie")
-  .collision();
-  */
 });
