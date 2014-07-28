@@ -1,27 +1,55 @@
 define(["c", "moving"], function () {
-  Crafty.e("MovingPlat", {
+  Crafty.c("MovingPlat", {
     init: function () {
-      this.__defineSetter__("start", this._startChanged);
-      this.__defineSetter__("end", this._endChanged);
+      Object.defineProperties(this, {
+        "start": {
+          get: function () {
+            return this._start;
+          },
+          set: this._startChanged
+        },
+        "end": {
+          get: function () {
+            return this._end;
+          },
+          set: this._endChanged
+        }
+      });
+      console.log("INIT")
       this.start = {
         x: this.x,
         y: this.y
       };
-      this.color("lime")
+      this.requires("Solid, Moving, Color");
+      this.bind("EnterFrame", this._onEnterFrame);
     },
     MovingPlat: function (start, end) {
       this.start = start;
       this.end = end;
     },
+    _onEnterFrame: function () {
+      if (this.path instanceof Array) {
+        if (this.step === undefined) this.step = -1;
+        this.step += 1;
+        this.x = this.path[this.step].x + this._x;
+        this.y = this.path[this.step].y + this._y;
+      }
+    },
     //Code from StackOverFlow.
     calculatePath: function () {
+      if (!this.end || !this.start) {
+        this.path = undefined;
+        console.log("ABORT CALC PATH")
+        return this;
+      }
+      console.log("CALCPATH");
       this.path = [];
       // Translate coordinates
-      if (!this.end || this.start) return this;
-      var x1 = this.start.x;
-      var y1 = this.start.y;
-      var x2 = this.end.x;
-      var y2 = this.end.y;
+      var x1 = this._start.x;
+      var y1 = this._start.y;
+      var x2 = this._end.x - this._start.x;
+      var y2 = this._start.y - this._end.y;
+      console.log(x2, y2)
       // Define differences and error check
       var diff = {
         x: Math.abs(x2 - x1),
@@ -48,17 +76,18 @@ define(["c", "moving"], function () {
         // Set coordinates
         this.path.push({x: x1, y: y1});
       }
+      console.dir(this.path);
       // Return the result
-      this.path = c;
       return this;
     },
     //Setter functions for start/end
     _startChanged: function (value) {
-      this._start = value
+      this._start = value;
+      console.log("START CHANGE")
       this.calculatePath();
     },
     _endChanged: function (value) {
-      this._end = value
+      this._end = value;
       this.calculatePath();
     }
   });
