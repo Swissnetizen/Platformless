@@ -1,6 +1,6 @@
 define(["c"], function (require) {
   "use strict";
-  Crafty.c("Creature", {
+  Crafty.c("Character", {
     nodamage: false,
     multiplier: 1,
     health: 1,
