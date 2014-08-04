@@ -37,9 +37,12 @@ define(["c", "moving"], function () {
         if (this.path[this.step] === undefined) {
           this.trigger("endReached");
           if (this.autoReverse) {
+            console.log("AUTOREVERSE")
             this.trigger("Reversing");
             this.reversing = !this.reversing;
-            this.calculatePath
+            console.log(this.reversing)
+            this.calculatePath();
+            this.step = -1
           }
           return;
         }
@@ -59,6 +62,7 @@ define(["c", "moving"], function () {
       this.calcpathActive = true;
       //Is reversing?
       if (!this.reversing) {
+        console.log("NOT REVERSING")
         var start = {
           x: this._start.x,
           y: this._start.y
@@ -68,6 +72,7 @@ define(["c", "moving"], function () {
             y: this._end.y
           }
       } else if (this.reversing) {
+        console.log("⛔CALCREVERSEPATH")
         var start = {
           x: this._end.x,
           y: this._end.y
