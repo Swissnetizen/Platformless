@@ -15,13 +15,19 @@ define(["c", "moving"], function () {
           set: this._endChanged
         }
       });
-      console.log("INIT")
       this.start = {
         x: this.x,
         y: this.y
       };
-      this.requires("Solid, Moving, Color");
+      //Required components
+      this.requires("Solid, Moving, Color, collision");
+      //Collisions
+      this.hitbox = new Crafty.polygon([0, 2], [0, -2], [this.w, 2], [this.w, -2]);
+      this.collision(this.hitbox);
+      //EventBinding
       this.bind("EnterFrame", this._onEnterFrame);
+      this.onHit("Character", this._onHitCharacter, this._offHitCharacter)
+      //Reversing
       this.reversing = false;
       this.autoReverse = true;
     },
@@ -30,6 +36,19 @@ define(["c", "moving"], function () {
       this.end = end;
       this.autoReverse = autoReverse;
     },
+    _onHitCharacter: function (characters) {
+      console.log("THIS :HIT");
+      this.atachees = characters;
+      characters.forEach(function (char) {
+        this.attach(char);
+      }.bind(this));
+    },
+    _offHitCharacter: function () {
+      this.atachees.forEach(function (char) {
+        this.detach(char);
+      }.bind(this));
+      this.atachees = [];
+    },
     _onEnterFrame: function () {
       if (this.path instanceof Array && !this.calcpathActive) {
         if (this.step === undefined) this.step = -1;
@@ -37,10 +56,8 @@ define(["c", "moving"], function () {
         if (this.path[this.step] === undefined) {
           this.trigger("endReached");
           if (this.autoReverse) {
-            console.log("AUTOREVERSE")
             this.trigger("Reversing");
             this.reversing = !this.reversing;
-            console.log(this.reversing)
             this.calculatePath();
             this.step = -1
           }
@@ -49,7 +66,6 @@ define(["c", "moving"], function () {
         this.x = this.path[this.step].x;
         this.y = this.path[this.step].y;
       }
-      this.color("lime");
     },
     //Code from StackOverFlow.
     calculatePath: function () {
@@ -57,12 +73,10 @@ define(["c", "moving"], function () {
         this.path = undefined;
         return this;
       }
-      console.log("Calculatin Path")
       this.path = [];
       this.calcpathActive = true;
       //Is reversing?
       if (!this.reversing) {
-        console.log("NOT REVERSING")
         var start = {
           x: this._start.x,
           y: this._start.y
@@ -72,7 +86,6 @@ define(["c", "moving"], function () {
             y: this._end.y
           }
       } else if (this.reversing) {
-        console.log("⛔CALCREVERSEPATH")
         var start = {
           x: this._end.x,
           y: this._end.y
