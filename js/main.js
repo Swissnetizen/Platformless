@@ -33,10 +33,10 @@ require(["c", "gamepad", "AI", "platform", "wasd", "stats", "movingplat"], funct
       //Position and size
       x: 750, y: 500, w: 250, h: 10,
       //Start and end for moving plat
-      end: {x: -10, y: 20}
+      end: {x: 500, y: 500}, start: {x: 250, y: 500}
     }).color("#00CCCC");
   //The player
-  var player = Crafty.e("Creature, 2D, Canvas, Color, Moving, Collision, Solid, GamepadPlatControl, WASDControls")
+  var player = Crafty.e("Character, 2D, Canvas, Color, Moving, Collision, Solid, GamepadPlatControl, WASDControls")
   .attr({
     x: 0,
     y: 230,

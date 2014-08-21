@@ -56,7 +56,6 @@ define(["c"], function (require) {
       this.bind("P" + n + "Change", this._onPNChange.bind(this));
     },
     _activeChanged: function (value) {
-      console.log(value);
       this._active = value;
       if (value) {
         this.addComponent("Solid");
@@ -67,11 +66,6 @@ define(["c"], function (require) {
       }
     },
     _onPNChange: function () {
-      if (this._platformNumber === 1) {
-        console.log("TRIGGER");
-      } else if (this._platformNumber === 2) {
-        console.log("TRIG JOKES ON YOU")
-      }
       this.active = !this._active;
     }
   });

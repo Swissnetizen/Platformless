@@ -1,6 +1,6 @@
 define(["c"], function (require) {
   "use strict";
-  Crafty.c("Creature", {
+  Crafty.c("Character", {
     nodamage: false,
     multiplier: 1,
     health: 1,
@@ -11,7 +11,7 @@ define(["c"], function (require) {
       this.bind("Damage", this._onDamage);
       this.bind("Death", this._onDeath);
       this.bind("Attack", this._onAttack);
-      //Set up gravity
+      //Activate Gravity
       this.gravity("Solid");
     },
     //Health of a creature

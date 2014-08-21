@@ -15,75 +15,117 @@ define(["c", "moving"], function () {
           set: this._endChanged
         }
       });
-      console.log("INIT")
       this.start = {
         x: this.x,
         y: this.y
       };
-      this.requires("Solid, Moving, Color");
+      //Required components
+      this.requires("Solid, Moving, Color, collision");
+      //Collisions
+      this.hitbox = new Crafty.polygon([0, 2], [0, -2], [this.w, 2], [this.w, -2]);
+      this.collision(this.hitbox);
+      //EventBinding
       this.bind("EnterFrame", this._onEnterFrame);
+      this.onHit("Character", this._onHitCharacter, this._offHitCharacter)
+      //Reversing
+      this.reversing = false;
+      this.autoReverse = true;
     },
-    MovingPlat: function (start, end) {
+    MovingPlat: function (start, end, autoReverse) {
       this.start = start;
       this.end = end;
+      this.autoReverse = autoReverse;
+    },
+    _onHitCharacter: function (characters) {
+      console.log("THIS :HIT");
+      this.atachees = characters;
+      characters.forEach(function (char) {
+        this.attach(char);
+      }.bind(this));
+    },
+    _offHitCharacter: function () {
+      this.atachees.forEach(function (char) {
+        this.detach(char);
+      }.bind(this));
+      this.atachees = [];
     },
     _onEnterFrame: function () {
-      if (this.path instanceof Array) {
+      if (this.path instanceof Array && !this.calcpathActive) {
         if (this.step === undefined) this.step = -1;
         this.step += 1;
-        this.x = this.path[this.step].x + this._x;
-        this.y = this.path[this.step].y + this._y;
+        if (this.path[this.step] === undefined) {
+          this.trigger("endReached");
+          if (this.autoReverse) {
+            this.trigger("Reversing");
+            this.reversing = !this.reversing;
+            this.calculatePath();
+            this.step = -1
+          }
+          return;
+        }
+        this.x = this.path[this.step].x;
+        this.y = this.path[this.step].y;
       }
     },
     //Code from StackOverFlow.
     calculatePath: function () {
       if (!this.end || !this.start) {
         this.path = undefined;
-        console.log("ABORT CALC PATH")
         return this;
       }
-      console.log("CALCPATH");
       this.path = [];
-      // Translate coordinates
-      var x1 = this._start.x;
-      var y1 = this._start.y;
-      var x2 = this._end.x - this._start.x;
-      var y2 = this._start.y - this._end.y;
-      console.log(x2, y2)
-      // Define differences and error check
-      var diff = {
-        x: Math.abs(x2 - x1),
-        y: Math.abs(y2 - y1)
-      },
+      this.calcpathActive = true;
+      //Is reversing?
+      if (!this.reversing) {
+        var start = {
+          x: this._start.x,
+          y: this._start.y
+        },
+          end = {
+            x: this._end.x,
+            y: this._end.y
+          }
+      } else if (this.reversing) {
+        var start = {
+          x: this._end.x,
+          y: this._end.y
+        },
+          end = {
+            x: this._start.x,
+            y: this._start.y
+          }
+      }
+      //Calculate delta
+        var delta = {
+          x: Math.abs(end.x-start.x),
+          y: Math.abs(end.y-start.y)
+        },
+      //Calculate swap
         swap = {
-          x: (x1 < x2) ? 1 : -1,
-          y: (y1 < y2) ? 1 : -1
-      }
-      err = diff.x - diff.y;
-      // Set first coordinates
-      this.path.push({x: x1, y: y1});
-      // Main loop "I HAVE ABSOLUTLEY NO IDEA WHAT THIS DOES!""
-      while (!((x1 == x2) && (y1 == y2))) {
-        var e2 = err << 1;
-        if (e2 > -diff.y) {
-          err -= diff.y;
-          x1 += swap.x;
+          x: (start.x < end.x) ? 1 : -1,
+          y: (start.y < end.y) ? 1 : -1
+        },
+        //Calculate error
+        error = delta.x - delta.y;
+      //Loop
+      while(!((start.x === end.x) && (start.y === end.y))) {
+        var doubleError = 2*error;
+        if (doubleError >- delta.y) {
+          error -= delta.y;
+          start.x += swap.x;
         }
-        if (e2 < diff.x) {
-          err += diff.x;
-          y1 += swap.y;
+        if (doubleError < delta.x){
+          error += delta.x;
+          start.y  += swap.y;
         }
-        // Set coordinates
-        this.path.push({x: x1, y: y1});
+        this.path.push({x: start.x, y: start.y});
       }
-      console.dir(this.path);
-      // Return the result
+      this.calcpathActive = false;
       return this;
     },
     //Setter functions for start/end
     _startChanged: function (value) {
       this._start = value;
-      console.log("START CHANGE")
       this.calculatePath();
     },
     _endChanged: function (value) {
@@ -92,4 +134,3 @@ define(["c", "moving"], function () {
     }
   });
 });
-   

@@ -1,3 +1,3 @@
-define(["c", "creature", "moving"], function (require) {
+define(["c", "character", "moving"], function (require) {
   "use strict";
 });
