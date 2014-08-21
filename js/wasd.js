@@ -37,7 +37,6 @@ define(["c", "moving"], function (require) {
       //PLATFORM 1
       var b = Crafty.mouseButtons,
           k = Crafty.keys;
-      console.log("MOSUE CHANGE")
       if (e.mouseButton === b.LEFT || e.key === k.Q) {
         Crafty.trigger("P1Change");
       }
