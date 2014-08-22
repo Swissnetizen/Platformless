@@ -51,6 +51,7 @@ require(["c", "gamepad", "AI", "platform", "wasd", "stats", "movingplat"], funct
   .collision()
   .color('#F0F')
 //  .fourway({x: 5, y: 6})
-  .creature(1, 3, "P1")
+  .creature(1, 3, "P1");
+  Crafty.viewport.follow(player);
 
 });
