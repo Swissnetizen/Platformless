@@ -1,10 +1,10 @@
 var playState = {
 
-	create: function() { 
+  create: function() { 
 
-	},
+  },
 
-	update: function() {
+  update: function() {
 
-	},
+  },
 };
