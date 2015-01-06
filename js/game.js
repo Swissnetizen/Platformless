@@ -1,5 +1,6 @@
 // Initialize Phaser
-var game = new Phaser.Game(500, 350, Phaser.AUTO, "gameDiv");
+"use strict";
+var game = new Phaser.Game(960, 540, Phaser.AUTO, "gameDiv");
 
 // Our "global" variable
 game.global = {

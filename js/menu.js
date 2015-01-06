@@ -1,5 +1,5 @@
+"use strict";
 var menuState = {
-
   create: function() { 
     // Name of the game
     var nameLabel = game.add.text(game.world.centerX, 80, "Platformless", { font: "50px Arial", fill: "#ffffff" });
