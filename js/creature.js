@@ -1,15 +1,9 @@
-
 "use strict";
 window.creatures = {}
-window.creatures.Creature = function (game, x, y, image, physics, gravity) {
+window.creatures.Creature = function (game, x, y, image, frame) {
   //Initiate Sprite
-  Phaser.Sprite.call(this, game, x, y, image);
-  //Initiate Physics
-  game.physics[physics.toLowerCase() || "arcade"].enable(this);
-  if (gravity) {
-    this.body.gravity.x = gravity.x  || 0;
-    this.body.gravity.y = gravity.y  || 0;
-  }
+  Phaser.Sprite.call(this, game, x, y, image, frame);
+  this.anchor.setTo(.5, .5);
   //Accessorsfae
   Object.defineProperties(this, {
     "healthPoints": new util.DynProp(
@@ -20,5 +14,28 @@ window.creatures.Creature = function (game, x, y, image, physics, gravity) {
         this.store.healthPoints = value;
     }.bind(this))
   });
+  game.add.existing(this);
+  this.enablePhysics = function (physics, gravity) {
+    game.physics[physics.toLowerCase() || "arcade"].enable(this);
+    if (gravity) {
+      this.body.gravity.x = gravity.x  || 0;
+      this.body.gravity.y = gravity.y  || 0;
+    }
+  };
+  this.die = function () {
+    this.kill();
+  };
 };
 window.creatures.Creature.prototype = Phaser.Sprite.prototype;
+window.creatures.Player = function (game, x, y, image, frame) {
+  Object.defineProperties(this, {});
+  this.cursorKeys = game.input.keyboard.createCursorKeys();
+  this.checkControls = function () {
+    var c = this.cursorKeys;
+    if (c.left.isDown) this.velocity.x = -200;
+  };
+  this.update = function () {
+    this.checkControls();
+    console.log("HELLO");
+  }.bind(this);
+}
