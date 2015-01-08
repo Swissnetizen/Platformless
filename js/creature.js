@@ -1,8 +1,9 @@
 "use strict";
 window.creatures = {}
+//Creature
 window.creatures.Creature = function (game, x, y, image, frame, add) {
   //Initiate Sprite
-  Phaser.Sprite.call(this, game, x, y, image, frame);
+  Phaser.Sprite.apply(this, arguments);
   this.anchor.setTo(.5, .5);
   //Accessorsfae
   Object.defineProperties(this, {
@@ -17,7 +18,9 @@ window.creatures.Creature = function (game, x, y, image, frame, add) {
   //Add to game if add is true or undefined
   if (add ||  typeof add === "undefined") game.add.existing(this);
   this.enablePhysics = function (physics, gravity) {
-    game.physics[physics.toLowerCase() || "arcade"].enable(this);
+    console.log(physics);
+    if (!physics) var physics = "arcade";
+    game.physics[physics ||  "arcade"].enable(this);
     if (gravity) {
       this.body.gravity.x = gravity.x  || 0;
       this.body.gravity.y = gravity.y  || 0;
@@ -28,15 +31,23 @@ window.creatures.Creature = function (game, x, y, image, frame, add) {
   };
 };
 window.creatures.Creature.prototype = Phaser.Sprite.prototype;
+//Player
 window.creatures.Player = function (game, x, y, image, frame) {
+  //Initialise creature
+  creatures.Creature.apply(this, arguments);
+  //Accessors
   Object.defineProperties(this, {});
+  //Use function to enable control scheme
   this.cursorKeys = game.input.keyboard.createCursorKeys();
   this.checkControls = function () {
     var c = this.cursorKeys;
-    if (c.left.isDown) this.velocity.x = -200;
+    if (c.left.isDown) this.velocity.x
   };
+  //Enable physics
+  this.enablePhysics("arcade", {y: 200});
+  //Called/Frame
   this.update = function () {
-    this.checkControls();
-    console.log("HELLO");
+
   }.bind(this);
-}
+};
+creatures.Player.prototype = creatures.Creature.prototype;
