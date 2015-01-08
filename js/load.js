@@ -10,9 +10,10 @@ var loadState = {
     var progressBar = game.add.sprite(game.world.centerX, 200, "progressBar");
     progressBar.anchor.setTo(0.5, 0.5);
     game.load.setPreloadSprite(progressBar);
-
     // Load all assets
-    game.load.spritesheet("mute", "assets/muteButton.png", 28, 22);
+      //SpriteSheets
+      game.load.spritesheet("mute", "assets/muteButton.png", 28, 22);
+      game.load.spritesheet("player1", "assets/p1_spritesheet.png", 72, 97);
     // ...
   },
 
