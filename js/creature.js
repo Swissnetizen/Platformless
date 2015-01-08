@@ -1,6 +1,6 @@
 "use strict";
 window.creatures = {}
-window.creatures.Creature = function (game, x, y, image, frame) {
+window.creatures.Creature = function (game, x, y, image, frame, add) {
   //Initiate Sprite
   Phaser.Sprite.call(this, game, x, y, image, frame);
   this.anchor.setTo(.5, .5);
@@ -14,7 +14,8 @@ window.creatures.Creature = function (game, x, y, image, frame) {
         this.store.healthPoints = value;
     }.bind(this))
   });
-  game.add.existing(this);
+  //Add to game if add is true or undefined
+  if (add ||  typeof add === "undefined") game.add.existing(this);
   this.enablePhysics = function (physics, gravity) {
     game.physics[physics.toLowerCase() || "arcade"].enable(this);
     if (gravity) {
