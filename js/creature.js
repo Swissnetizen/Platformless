@@ -41,13 +41,21 @@ window.creatures.Player = function (game, x, y, image, frame) {
   this.cursorKeys = game.input.keyboard.createCursorKeys();
   this.checkControls = function () {
     var c = this.cursorKeys;
-    if (c.left.isDown) this.velocity.x
+    //Horizontal movement
+    if (c.left.isDown) {
+      this.body.velocity.x = -200;
+    } else if (c.right.isDown) {
+      this.body.velocity.x = 200;
+    } else {
+      this.body.velocity.x = 0;
+    }
+    
   };
   //Enable physics
   this.enablePhysics("arcade", {y: 200});
   //Called/Frame
   this.update = function () {
-
+    this.checkControls();
   }.bind(this);
 };
 creatures.Player.prototype = creatures.Creature.prototype;
