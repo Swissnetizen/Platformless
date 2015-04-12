@@ -1,5 +1,8 @@
 Platformless
 ============
+LICENCE: 
+This is licensed under the MIT public licence
+Assets are licensed under CC-BY 3.0
 
 This is how the repo will be structured:
 
